@@ -77,4 +77,4 @@ if prediction[0]==1:
 else:
     print("The student is fail.")
 
-#get location
+
