@@ -1,0 +1,31 @@
+name:Student Prediction API CI-CD
+
+on:
+  push:
+    branches:
+      -main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on:ubuntu-latest
+
+    steps:
+      - name:checkout repository
+        uses:actions/checkout@v4
+
+      - name: Set up Python
+        uses:actions/setup-python@v4
+        with:
+          python-version:"3.14"
+
+      - name: Install dependencies
+        run:pip install -r requirements.txt
+
+      - name: Validate API
+        run:python -c "import app; print('API validation successful')"
+
+      - name: Deploy to Render 
+        if: success()
+        run: curl --fail --silent --show-error -X POST "${{secrets.https://api.render.com/deploy/srv-dbvt8vnf3r2c7382pm9g?key=zXmWq9_ZQJM}}"    
+          
